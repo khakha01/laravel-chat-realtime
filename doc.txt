@@ -1,0 +1,21 @@
+# Chuẩn bị toàn bộ nền tảng realtime (WebSocket) | Nó sẽ tự động (Cài & cấu hình Laravel Reverb (WebSocket server),Cập nhật .env)
+php artisan install:broadcasting
+
+# Tạo Event class trong Laravel ➡ Khai báo “cái event” sẽ được bắn đi
+php artisan make:event MessageSent
+
+# Khởi động WebSocket server (Laravel Reverb) | Lắng nghe kết nối realtime từ frontend
+php artisan reverb:start  --host=127.0.0.1 --port=6001
+
+
+
+
+
+
+
+
+
+
+
+
+
