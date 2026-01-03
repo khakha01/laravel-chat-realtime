@@ -8,5 +8,5 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 
 
 Broadcast::channel('chat', function () {
-    return true;
+    return true; // user đã login là vào được
 });

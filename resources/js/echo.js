@@ -1,6 +1,7 @@
-import Echo from 'laravel-echo';
 
-import Pusher from 'pusher-js';
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
+
 window.Pusher = Pusher;
 
 window.Echo = new Echo({
@@ -12,3 +13,11 @@ window.Echo = new Echo({
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
 });
+
+// Optional: bật debug local
+if (import.meta.env.DEV) {
+    Pusher.logToConsole = true;
+}
+
+// Bạn có thể export Echo nếu cần dùng ở file khác
+export default window.Echo;

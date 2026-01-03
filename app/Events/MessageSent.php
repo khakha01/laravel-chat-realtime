@@ -32,7 +32,7 @@ class MessageSent implements ShouldBroadcastNow
      * Frontend phải listen đúng channel này mới nhận được event
      *
      * Channel // public
-     * PrivateChannel // private (cần auth)
+     * PrivateChannel // private (cần auth) bắt buộc xác thực
      * PresenceChannel // private + danh sách user online
      *
      * Nếu đổi channel → frontend phải đổi theo
@@ -43,7 +43,7 @@ class MessageSent implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new Channel('chat'), // Public channel
+            new PrivateChannel('chat'), // Public channel
         ];
     }
 
@@ -81,9 +81,9 @@ class MessageSent implements ShouldBroadcastNow
                 'content' => $this->message
             ],
             'user' => [
-                'name' => $this->user ? $this->user->name : 'Guest'
+                'id'   => $this->user->id,
+                'name' => $this->user->name,
             ]
         ];
     }
-
 }

@@ -7,15 +7,35 @@ php artisan make:event MessageSent
 # Khởi động WebSocket server (Laravel Reverb) | Lắng nghe kết nối realtime từ frontend
 php artisan reverb:start  --host=127.0.0.1 --port=6001
 
+#
+npm install --save-dev laravel-echo pusher-js
+
+===================================================================================================================================================================================================================================
+
+# Quy trình:
+
+- Reverb là server websocket
++ lệnh php artisan reverb:start  : lắng nghe kết nối từ client, broadcast events
+
+- Laravel Echo
++ Thư viện JS để frontend kết nối websocket với Reverb.
++ Config broadcaster 'reverb', key từ env. Nó giúp "listen" events từ server và "join" channel.
+
+- Pusher.js
++ Echo dùng Pusher protocol (một chuẩn websocket phổ biến)
++ Reverb compatible với Pusher để dễ migrate từ dịch vụ bên thứ 3.
+*protocol (giao thức) = luật giao tiếp giữa 2 bên (client ↔ server)
+*Pusher protocol = bộ quy ước do Pusher định nghĩa cho realtime WebSocket
+
+- Broadcasting System
++ Cơ chế Laravel để "phát sóng" events
 
 
-
-
-
-
-
-
-
-
-
-
+- Chuẩn bị (Setup Dự Án – Trước Khi Chạy):
++ Install Laravel + Reverb: composer require laravel/reverb.
++ Config broadcasting: Trong config/broadcasting.php, set 'reverb' với key, host.
++ Định nghĩa channels: routes/channels.php – ví dụ auth cho 'chat'.
++ Tạo Event: php artisan make:event MessageSent – implement ShouldBroadcastNow.
++ Routes và Controller: GET '/' load view, POST '/send-message' broadcast event.
++ Frontend: Load Echo + Pusher JS, config Echo, listen events.
++ Chạy server: php artisan serve (Laravel), php artisan reverb:start (Reverb websocket).
