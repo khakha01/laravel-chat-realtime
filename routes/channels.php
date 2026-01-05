@@ -2,11 +2,10 @@
 
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('chat.{userA}.{userB}', function ($user, $userA, $userB) {
+    return in_array($user->id, [(int)$userA, (int)$userB]);
 });
 
-
-Broadcast::channel('chat', function () {
-    return true; // user đã login là vào được
+Broadcast::channel('notify.{userId}', function ($user, $userId) {
+    return $user->id == $userId;
 });

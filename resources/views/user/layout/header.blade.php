@@ -13,6 +13,9 @@
         <!-- Right actions -->
         <div class="actions">
             @auth
+            <a href="{{route('chat')}}" style="text-decoration:none">
+                @include('user.components.notify-message')
+            </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="btn-logout">Logout</button>

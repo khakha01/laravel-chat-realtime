@@ -20,11 +20,16 @@ class MessageSent implements ShouldBroadcastNow
      */
     public $message;
     public $user;
+    public $fromUserId;
+    public $toUserId;
 
-    public function __construct($message, $user = null)
+    public function __construct($message, $user, $fromUserId, $toUserId)
     {
         $this->message = $message;
         $this->user = $user;
+
+        $this->fromUserId = $fromUserId;
+        $this->toUserId   = $toUserId;
     }
 
     /**
@@ -42,8 +47,14 @@ class MessageSent implements ShouldBroadcastNow
      */
     public function broadcastOn(): array
     {
+        $ids = collect([$this->fromUserId, $this->toUserId])->sort()->values();
+
         return [
-            new PrivateChannel('chat'), // Public channel
+            // channel chat 1–1
+            new PrivateChannel("chat.{$ids[0]}.{$ids[1]}"),
+
+            // channel notify cho người nhận
+            new PrivateChannel("notify.{$this->toUserId}")
         ];
     }
 

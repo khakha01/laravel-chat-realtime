@@ -6,10 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    protected $fillable = ['user_id', 'content'];
+    protected $fillable = ['from_user_id', 'to_user_id', 'content', 'is_read'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'from_user_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'to_user_id');
+    }
+
+    public static function make(int $fromUserId,int $toUserId,string $content)
+    {
+        return new static([
+            'from_user_id' => $fromUserId,
+            'to_user_id' => $toUserId,
+            'content' => $content,
+        ]);
     }
 }

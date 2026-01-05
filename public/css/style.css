@@ -3,14 +3,24 @@ body {
     background: #f0f2f5;
 }
 
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+/**/
+.main-chat {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px 30px;
+}
+
 #messages {
-    height: 200px;
+    min-height: 500px;
     overflow-y: auto;
-    background: white;
+    background: #f5f5f5;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #messages::after {
@@ -187,6 +197,7 @@ button:hover {
         text-align: center;
     }
 }
+
 /* ===== Home ===== */
 .home {
     max-width: 1100px;
@@ -297,4 +308,221 @@ button:hover {
     .hero h1 {
         font-size: 28px;
     }
+}
+
+/* ===== Auth Card ===== */
+.auth-card {
+    max-width: 420px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Title */
+.auth-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 6px;
+}
+
+.auth-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 28px;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* Error */
+.error {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #dc2626;
+}
+
+/* Button */
+.btn-auth {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-auth:hover {
+    background: #1d4ed8;
+}
+
+/* Footer */
+.auth-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.auth-footer a {
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Alert */
+.alert-success {
+    max-width: 420px;
+    margin: 20px auto;
+    padding: 12px 16px;
+    background: #ecfdf5;
+    color: #065f46;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Options */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #374151;
+}
+
+.link {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+
+/* user */
+.main-user-list {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-item {
+    padding: 5px;
+}
+
+.user-item:hover {
+    background: #f0f0f0;
+    border-radius: 8px;
+}
+
+.user-item .avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 3px solid #eaeaea;
+    padding: 2px;
+}
+
+.user-item:hover .avatar {
+    border: 3px solid #09a5fa;
+}
+
+
+.chat-avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 2px solid #eaeaea;
+    padding: 2px;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-info {
+    display: flex;
+    align-items: center;
+}
+
+.message-notify {
+    position: relative;
+    background: #179aff;
+    width: 33px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 22px;
+    color: #fff;
+    z-index: 2;
+}
+
+.message-notify span {
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    background: #ff0000;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 10px;
+    z-index: 1;text-align: center;
 }

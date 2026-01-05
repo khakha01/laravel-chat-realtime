@@ -39,3 +39,8 @@ npm install --save-dev laravel-echo pusher-js
 + Routes và Controller: GET '/' load view, POST '/send-message' broadcast event.
 + Frontend: Load Echo + Pusher JS, config Echo, listen events.
 + Chạy server: php artisan serve (Laravel), php artisan reverb:start (Reverb websocket).
+
+
+
+===================================================================================================================================================================================
+php artisan make:migration add_is_read_to_users --table=users
