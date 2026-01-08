@@ -30,8 +30,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/read/{user}', [MessageController::class, 'markAsRead']);
     });
 
+    Route::prefix('users')->group(function () {
+        // list
+        Route::get('/', [UserController::class, 'index']);
+        Route::post('/offline', [UserController::class, 'offline']);
+    });
 
-    Route::get('/users', [UserController::class, 'index']);
+
 });
 
 

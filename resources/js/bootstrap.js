@@ -12,7 +12,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import './echo';
 import { initNotify } from './components/notify-message';
-
+import './components/user-list';
 document.addEventListener('DOMContentLoaded', () => {
     initNotify();
 });

@@ -9,7 +9,7 @@ export async function initNotify() {
     const unreadUsers = new Set();
 
     /* =======================
-       🔊 SOUND SETUP
+       SOUND SETUP
     ======================= */
     const notifySound = new Audio("/sounds/notify-message.mp3");
     let audioUnlocked = false;
