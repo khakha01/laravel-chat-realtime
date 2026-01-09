@@ -46,5 +46,3 @@ export function initUserList({ AUTH_USER, onSelectUser } = {}) {
     loadUsers();
 }
 
-// Export ra window để dùng ở nơi khác (nếu cần)
-window.initUserList = initUserList;

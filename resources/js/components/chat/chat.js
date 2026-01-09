@@ -1,14 +1,16 @@
+import { initUserList } from "../user-list";
 import { subscribeToChat } from "./channel";
 import { renderChatHeader, updateCurrentChatHeader } from "./chatHeader";
 import { loadHistory } from "./chatHistory";
 import { onlineStatus } from "./online-status";
+import { initNotify } from "./notify-message";
 
 
-const AUTH_USER = window.AUTH_USER; // Được inject từ Blade
+const AUTH_USER = window.AUTH_USER;
 
-let currentChatUser = null;
+let currentChatUser = null; // Người đang chat hiện tại - User mà bạn đang mở khung chat
 
-window.USER_STATUS = window.USER_STATUS || {};
+window.USER_STATUS = window.USER_STATUS || {}; // Trạng thái online/offline của user
 
 
 const dom = {
@@ -44,8 +46,6 @@ function appendMessage({ content, user }) {
     dom.messages().scrollTop = dom.messages().scrollHeight;
 }
 
-
-
 async function openChat(user) {
     currentChatUser = user;
     window.currentChatUser = user;
@@ -64,56 +64,41 @@ async function openChat(user) {
 }
 
 
-async function sendMessage(content) {
-    const headers = {
-        "Content-Type": "application/json",
-        "X-CSRF-TOKEN": document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute("content"),
-    };
-
-    if (window.Echo?.socketId) {
-        headers["X-Socket-Id"] = window.Echo.socketId();
-    }
-
-    await fetch("/messages/send-message", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-            message: content,
-            to_user_id: currentChatUser.id,
-        }),
-    });
-}
-
-function initForm() {
-    dom.form().addEventListener("submit", async (e) => {
+const initForm = () => {
+    dom.form().onsubmit = async (e) => {
         e.preventDefault();
-
         const msg = dom.input().value.trim();
         if (!msg || !currentChatUser) return;
 
-        appendMessage({
-            content: msg,
-            user: AUTH_USER,
-        });
+        appendMessage({ content: msg, user: AUTH_USER });
 
         try {
-            await sendMessage(msg);
+            await fetch("/messages/send-message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                    "X-Socket-Id": window.Echo?.socketId() || undefined,
+                },
+                body: JSON.stringify({ message: msg, to_user_id: currentChatUser.id }),
+            });
         } catch {
             alert("Lỗi gửi tin nhắn!");
         }
 
         dom.input().value = "";
-    });
-}
+    };
+};
+
 
 document.addEventListener("DOMContentLoaded", () => {
     showDefaultMessage();
     initForm();
     onlineStatus();
-    window.initUserList?.({
+    initUserList({
         AUTH_USER,
         onSelectUser: (user) => openChat(user),
     });
+    initNotify();
 });
+

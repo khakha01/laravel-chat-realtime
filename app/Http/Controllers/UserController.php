@@ -2,27 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserOffline;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class UserController
 {
-    public function index()  {
-        $users = User::whereKeyNot(Auth::user())->select('id','name','avatar')->get();
-        return $users;
+    public function __construct(protected UserService $userService) {}
+    
+    public function index()
+    {
+        return $this->userService->getAllUsers(Auth::user());
     }
 
-    public function offline(Request $request) {
-         $user = User::find($request->user_id);
-
-         $user->update([
-            'last_seen_at' => now()
-        ]);
-
-        broadcast(new UserOffline($user->id));
-
+    public function offline()
+    {
+        $this->userService->markUserOffline(Auth::user());
+        
         return response()->json(['ok' => true]);
     }
 }

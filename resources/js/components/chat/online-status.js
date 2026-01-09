@@ -1,7 +1,5 @@
 import { updateCurrentChatHeader } from "./chatHeader";
 
-window.USER_STATUS = window.USER_STATUS || {};
-
 export function onlineStatus() {
     window.Echo.join("online")
         .here((users) => {

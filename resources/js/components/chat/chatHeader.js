@@ -1,7 +1,10 @@
 // chat/header.js
 
 export function renderChatHeader(user) {
-    const status = window.USER_STATUS[user.id] ;
+    const status = window.USER_STATUS[user.id] ?? {
+        online: false,
+        last_seen: null,
+    };
     let statusText = "Đang kiểm tra trạng thái...";
 
     if (status.online) {
@@ -16,13 +19,13 @@ export function renderChatHeader(user) {
     div.className = "chat-header";
     div.innerHTML = `
         <div class="chat-info">
-            <div>
+            <div class="d-flex gap-2 justify-content-start align-items-center">
                 <img class="chat-avatar" src="${
                     user.avatar ?? "/images/default-avatar.png"
                 }" alt="${user.name}" />
                 <div>
                     <span class="chat-name">${user.name}</span><br>
-                    <small class="chat-status" data-user-id="${
+                    <small class="chat-status fs-6" data-user-id="${
                         user.id
                     }">${statusText}</small>
                 </div>
@@ -45,11 +48,11 @@ export function updateCurrentChatHeader(userId) {
     const status = window.USER_STATUS[userId] || {};
 
     if (status.online) {
-        statusEl.textContent = "🟢 Đang online";
+        statusEl.textContent = "Đang online";
     } else if (status.last_seen) {
-        statusEl.textContent = `🕒 Hoạt động ${formatLastSeen(status.last_seen)}`;
+        statusEl.textContent = `Hoạt động ${formatLastSeen(status.last_seen)}`;
     } else {
-        statusEl.textContent = "🔴 Offline";
+        statusEl.textContent = "Offline";
     }
 }
 
